@@ -10,13 +10,13 @@ CREATE TABLE Tehtava (
   id SERIAL PRIMARY KEY,
   kayttaja_id INTEGER REFERENCES Kayttaja(id),
   kuvaus varchar(200) NOT NULL,
-  prioriteetti int NOT NULL,
+  prioriteetti int NOT NULL
 );
 
 CREATE TABLE Luokka (
   id SERIAL PRIMARY KEY,
   kayttaja_id INTEGER REFERENCES Kayttaja(id),
-  kuvaus varchar(200) NOT NULL,
+  kuvaus varchar(200) NOT NULL
 );
 
 CREATE TABLE TehtavaLuokka (

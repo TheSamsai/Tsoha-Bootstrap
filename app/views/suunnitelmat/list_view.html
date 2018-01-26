@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Muistilista</h1>
+  
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Tehtävä</th>
+        <th>Prioriteetti</th>
+        <th>Luokat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Tee koodaustehtävät</td>
+        <td>999</td>
+        <td>Ohjelmointi</td>
+        <th><button class="btn btn-primary">Muokkaa</button></th>
+        <th><button class="btn btn-danger">Poista</button></th>
+      </tr>
+      <tr>
+        <td>Nuku välillä</td>
+        <td>2</td>
+        <td>Muu elämä</td>
+        <td>Selviytyminen</td>
+        <th><button class="btn btn-primary">Muokkaa</button></th>
+        <th><button class="btn btn-danger">Poista</button></th>
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}

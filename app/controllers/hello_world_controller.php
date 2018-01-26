@@ -9,6 +9,22 @@
 
     public static function sandbox(){
       // Testaa koodiasi täällä
-      echo 'Hello World!';
+      View::make('helloworld.html');
+    }
+    
+    public static function view_list() {
+      View::make('suunnitelmat/list_view.html');
+    }
+    
+    public static function modify_item() {
+      View::make('suunnitelmat/modify_item.html');
+    }
+    
+    public static function login() {
+      View::make('suunnitelmat/login.html');
+    }
+    
+    public static function register() {
+      View::make('suunnitelmat/register.html');
     }
   }

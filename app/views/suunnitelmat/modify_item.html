@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Muokkaa tehtävää: [Tehtävän-nimi]</h1>
+
+  <form>
+    <div class="form-group">
+      <label>Tehtävä</label>
+      <input class="form-control" value="Tee koodaustehtävät" type="text">
+    </div>
+    <div class="form-group">
+      <label>Prioriteetti</label>
+      <input class="form-control" value="999" type="text">
+    </div>
+    <div>
+        <li>
+        <ul>
+            <label>Ohjelmointi</label>
+            <div class="form-group">
+                <button type="submit" class="btn btn-danger">Poista luokka</button>
+            </div>
+        </ul>
+        </li>
+    </div>
+    <div class="form-group">
+      <label>Lisää luokka</label>
+       <select>
+            <option value="ohjelmointi">Ohjelmointi</option>
+            <option value="elämä">Muu elämä</option>
+        </select> 
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+  </form>
+{% endblock %}

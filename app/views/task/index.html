@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Muistilista</h1>
+  
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Tehtävä</th>
+        <th>Prioriteetti</th>
+        <th>Luokat</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      {% for task in tasks %}
+      <tr>
+        <td>{{task.kuvaus}}</td>
+        <td>{{task.prioriteetti}}</td>
+        <td>
+          {% for class in task.luokat %}
+          {{class.kuvaus}}
+          {% endfor %}
+        </td>
+        <th><a class="btn btn-primary" href="{{base_path}}/task/{{task.id}}/edit">Muokkaa</a></th>
+        <th><a class="btn btn-danger" href="{{base_path}}/task/{{task.id}}/remove">Poista</a></th>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+  <a class="btn btn-primary" href="{{base_path}}/task/new">Lisää uusi tehtävä</a>
+{% endblock %}

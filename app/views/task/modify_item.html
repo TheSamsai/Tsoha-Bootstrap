@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Muokkaa tehtävää: {{task.kuvaus}}</h1>
+
+  <form method="post" action="{{base_path}}/task/{{task.id}}/edit">
+    <div class="form-group">
+      <label>Tehtävä</label>
+      <input name="kuvaus" class="form-control" value="{{task.kuvaus}}" type="text">
+    </div>
+    <div class="form-group">
+      <label>Prioriteetti</label>
+      <input name="prioriteetti" class="form-control" value="{{task.prioriteetti}}" type="text">
+    </div>
+    <div>
+        <li>
+            {% for class in task.luokat %}
+            <ul>
+                <label>{{class.kuvaus}}</label>
+                <div class="form-group">
+                    <a type="submit" class="btn btn-danger" href="{{base_path}}/task/{{task.id}}/remove_class/{{class.id}}">Poista luokka</a>
+                </div>
+            </ul>
+            {% endfor %}
+        </li>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+  </form>
+  
+  <form method="post" action="{{base_path}}/task/{{task.id}}/add_class">
+    <div class="form-group">
+      <label>Lisää luokka</label>
+       <select>
+           <option value="none">None</option>
+           {% for class in classes %}
+                <option value="{{class.id}}">{{class.kuvaus}}</option>
+           {% endfor %}
+        </select> 
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Lisää</button>
+    </div>
+  </form>
+  
+{% endblock %}

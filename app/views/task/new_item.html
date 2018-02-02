@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Uusi tehtävä</h1>
+
+  <form method="post" action="{{base_path}}/task/new">
+    <div class="form-group">
+      <label>Tehtävä</label>
+      <input name="kuvaus" class="form-control" value="Tehtävän kuvaus" type="text">
+    </div>
+    <div class="form-group">
+      <label>Prioriteetti</label>
+      <input name="prioriteetti" class="form-control" value="0" type="text">
+    </div>
+    
+    <div class="form-group">
+      <label>Luokka</label>
+       <select name="luokka">
+           <option value="none">None</option>
+           {% for class in classes %}
+                <option value="{{class.id}}">{{class.kuvaus}}</option>
+           {% endfor %}
+        </select> 
+    </div>
+    
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+  </form>
+  
+{% endblock %}

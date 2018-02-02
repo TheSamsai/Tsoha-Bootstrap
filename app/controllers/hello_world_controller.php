@@ -9,7 +9,14 @@
 
     public static function sandbox(){
       // Testaa koodiasi täällä
+      $eka = Task::find(1);
+      $kaikki = Task::all();
+      
+      Kint::dump($eka);
+      Kint::dump($kaikki);
+      
       View::make('helloworld.html');
+      
     }
     
     public static function view_list() {

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Kirjaudu sisään</h1>
+  
+  {% if messages %}
+    <div class="alert alert-info">
+      <ul>
+        {% for message in messages %}
+          <li>{{message}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  
+  {% if errors %}
+    <div class="alert alert-danger">
+      <ul>
+        {% for error in errors %}
+          <li>{{error}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  
+  <!-- Kaikki lomakkeen elementit form-tagin sisään -->
+  <form method="post" action="{{base_path}}/login">
+    <!-- Tekstikenttä käyttäjätunnukselle -->
+    <div class="form-group">
+      <label>Käyttäjätunnus</label>
+      <input name="username" class="form-control" type="text" value="{{attributes.username}}">
+    </div>
+
+    <!-- Salasanakenttä salasanalle -->
+    <div class="form-group">
+      <label>Salasana</label>
+      <input name="password" class="form-control" type="password">
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Kirjaudu sisään</button>
+    
+    <a href="{{base_path}}/register" type="submit" class="btn btn-primary" style="margin-left: 30px">Ei käyttäjätiliä?</a>
+    
+  </form>
+{% endblock %}

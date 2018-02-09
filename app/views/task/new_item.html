@@ -1,15 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
   <h1>Uusi tehtävä</h1>
-
+  
+  {% if errors %}
+    <div class="alert alert-danger">
+      <ul>
+        {% for error in errors %}
+          <li>{{error}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  
   <form method="post" action="{{base_path}}/task/new">
     <div class="form-group">
       <label>Tehtävä</label>
-      <input name="kuvaus" class="form-control" value="Tehtävän kuvaus" type="text">
+      <input name="kuvaus" class="form-control" value="{{attributes.kuvaus}}" type="text">
     </div>
     <div class="form-group">
       <label>Prioriteetti</label>
-      <input name="prioriteetti" class="form-control" value="0" type="text">
+      <input name="prioriteetti" class="form-control" value="{{attributes.prioriteetti}}" type="text">
     </div>
     
     <div class="form-group">

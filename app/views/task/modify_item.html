@@ -1,7 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
   <h1>Muokkaa tehtävää: {{task.kuvaus}}</h1>
-
+  
+  {% if errors %}
+    <div class="alert alert-danger">
+      <ul>
+        {% for error in errors %}
+          <li>{{error}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  
   <form method="post" action="{{base_path}}/task/{{task.id}}/edit">
     <div class="form-group">
       <label>Tehtävä</label>

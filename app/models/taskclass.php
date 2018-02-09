@@ -6,9 +6,9 @@
 			parent::__construct($attributes);
 		}
 		
-		public static function all() {
-			$query = DB::connection()->prepare("SELECT * FROM Luokka");
-			$query->execute();
+		public static function all($user_id) {
+			$query = DB::connection()->prepare("SELECT * FROM Luokka WHERE kayttaja_id = :kayttaja_id");
+			$query->execute(array('kayttaja_id' => $user_id));
 			
 			$rows = $query->fetchAll();
 			
@@ -25,9 +25,9 @@
 			return $classes;
 		}
 		
-		public static function find($id) {
-			$query = DB::connection()->prepare("SELECT * FROM Luokka WHERE id = :id LIMIT 1");
-			$query->execute(array('id' => $id));
+		public static function find($user_id, $id) {
+			$query = DB::connection()->prepare("SELECT * FROM Luokka WHERE id = :id AND kayttaja_id = :kayttaja_id LIMIT 1");
+			$query->execute(array('id' => $id, 'kayttaja_id' => $user_id));
 			
 			$row = $query->fetch();
 			

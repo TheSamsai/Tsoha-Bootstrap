@@ -2,6 +2,16 @@
 {% block content %}
   <h1>Muistilista</h1>
   
+  {% if messages %}
+    <div class="alert alert-info">
+      <ul>
+        {% for message in messages %}
+          <li>{{message}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  
   <table class="table table-bordered table-striped">
     <thead>
       <tr>

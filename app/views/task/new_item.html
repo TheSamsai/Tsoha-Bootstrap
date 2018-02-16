@@ -24,8 +24,7 @@
     
     <div class="form-group">
       <label>Luokka</label>
-       <select name="luokka">
-           <option value="none">None</option>
+       <select name="luokat[]" multiple="">
            {% for class in classes %}
                 <option value="{{class.id}}">{{class.kuvaus}}</option>
            {% endfor %}

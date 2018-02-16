@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Hallitse tehtäväluokkia</h1>
+  
+  {% if messages %}
+    <div class="alert alert-info">
+      <ul>
+        {% for message in messages %}
+          <li>{{message}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  
+  {% if errors %}
+    <div class="alert alert-danger">
+      <ul>
+        {% for error in errors %}
+          <li>{{error}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  
+    <li>
+        {% for class in classes %}
+        <ul>
+            <label>{{class.kuvaus}}</label>
+            <div class="form-group">
+                <a type="submit" class="btn btn-danger" href="{{base_path}}/class/{{class.id}}/remove">Poista</a>
+            </div>
+        </ul>
+        {% endfor %}
+    </li>
+  
+  <h2>Lisää uusi luokka</h2>
+  
+  <form method="post" action="{{base_path}}/class/new">
+    <div class="form-group">
+      <label>Luokka</label>
+      <input name="kuvaus" class="form-control" value="{{attributes.kuvaus}}" type="text">
+    </div>
+    
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+  </form>
+  
+{% endblock %}

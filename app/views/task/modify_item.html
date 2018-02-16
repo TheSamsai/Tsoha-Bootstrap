@@ -41,7 +41,7 @@
   <form method="post" action="{{base_path}}/task/{{task.id}}/add_class">
     <div class="form-group">
       <label>Lisää luokka</label>
-       <select>
+       <select name="luokka">
            <option value="none">None</option>
            {% for class in classes %}
                 <option value="{{class.id}}">{{class.kuvaus}}</option>

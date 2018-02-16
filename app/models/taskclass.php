@@ -4,6 +4,7 @@
 		
 		public function __construct($attributes) {
 			parent::__construct($attributes);
+			$this->validators = array('validate_description');
 		}
 		
 		public static function all($user_id) {
@@ -44,7 +45,7 @@
 			}
 		}
 		
-		public static function findForTask($task_id) {
+		public static function findForTask($user_id, $task_id) {
 			$query = DB::connection()->prepare("SELECT luokka_id FROM TehtavaLuokka WHERE tehtava_id = :id");
 			$query->execute(array('id' => $task_id));
 			
@@ -53,7 +54,7 @@
 			$classes = array();
 			
 			foreach($rows as $row) {
-				$classes[] = TaskClass::find($row['luokka_id']);
+				$classes[] = TaskClass::find($user_id, $row['luokka_id']);
 			}
 			
 			return $classes;
@@ -62,6 +63,32 @@
 		public static function connectTaskToClass($task_id, $class_id) {
 			$query = DB::connection()->prepare("INSERT INTO TehtavaLuokka (tehtava_id, luokka_id) VALUES (:tehtava_id, :luokka_id);");
 			$query->execute(array('tehtava_id' => $task_id, 'luokka_id' => $class_id));
+		}
+		
+		public function save() {
+			$query = DB::connection()->prepare("INSERT INTO Luokka (kayttaja_id, kuvaus) VALUES (:kayttaja_id, :kuvaus) RETURNING id;");
+			$query->execute(array('kayttaja_id' => $this->kayttaja_id, 'kuvaus' => $this->kuvaus));
+			$row = $query->fetch();
+			
+			$this->id = $row['id'];
+		}
+		
+		public function delete() {
+			$query = DB::connection()->prepare("DELETE FROM TehtavaLuokka WHERE luokka_id = :id");
+			$query->execute(array('id' => $this->id));
+			
+			$query = DB::connection()->prepare("DELETE FROM Luokka WHERE id = :id");
+			$query->execute(array('id' => $this->id));
+		}
+		
+		public function validate_description() {
+			$errors = array();
+			
+			if (!$this::validate_string_length($this->kuvaus, 1)) {
+				$errors[] = 'Kuvaus ei saa olla tyhjä!';
+			} 
+			
+			return $errors;
 		}
 	}
 ?>

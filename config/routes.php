@@ -32,6 +32,10 @@
     UserController::handle_register();
   });
   
+  $routes->post('/logout', function() {
+    UserController::logout();
+  });
+  
   $routes->get('/task', function() {
     TaskController::index();
   });
@@ -56,6 +60,22 @@
     TaskController::modify_view($id);
   });
   
+  $routes->post('/task/:id/add_class', function($id) {
+    TaskController::add_class_to_task($id);
+  });
+  
   $routes->post('/task/:id/edit', function($id) {
     TaskController::update($id);
+  });
+  
+  $routes->get('/class/:id/remove', function($id) {
+    ClassController::delete($id);
+  });
+  
+  $routes->get('/class/manage', function() {
+    ClassController::manage_view();
+  });
+  
+  $routes->post('/class/new', function() {
+    ClassController::store();
   });

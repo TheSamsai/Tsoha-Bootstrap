@@ -16,7 +16,7 @@
 			$tasks = array();
 			
 			foreach($rows as $row) {
-				$classes = TaskClass::findForTask($row['id']);
+				$classes = TaskClass::findForTask($user_id, $row['id']);
 				
 				$tasks[] = new Task(array(
 					'id' => $row['id'],
@@ -37,7 +37,7 @@
 			$row = $query->fetch();
 			
 			if ($row) {
-				$classes = TaskClass::findForTask($row['id']);
+				$classes = TaskClass::findForTask($user_id, $row['id']);
 				
 				$task = new Task(array(
 					'id' => $row['id'],
@@ -67,6 +67,8 @@
 		}
 		
 		public function delete() {
+			$query = DB::connection()->prepare("DELETE FROM TehtavaLuokka WHERE tehtava_id = :id");
+			$query->execute(array('id' => $this->id));
 			$query = DB::connection()->prepare("DELETE FROM Tehtava WHERE id = :id AND kayttaja_id = :kayttaja_id;");
 			$query->execute(array('id' => $this->id, 'kayttaja_id' => $this->kayttaja_id));
 		}

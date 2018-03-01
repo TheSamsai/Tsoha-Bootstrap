@@ -73,6 +73,11 @@
 			$this->id = $row['id'];
 		}
 		
+		public function update() {
+			$query = DB::connection()->prepare("UPDATE Luokka SET kuvaus = :kuvaus WHERE id = :id AND kayttaja_id = :kayttaja_id;");
+			$query->execute(array('kuvaus' => $this->kuvaus, 'id' => $this->id, 'kayttaja_id' => $this->kayttaja_id));
+		}
+		
 		public function delete() {
 			$query = DB::connection()->prepare("DELETE FROM TehtavaLuokka WHERE luokka_id = :id");
 			$query->execute(array('id' => $this->id));

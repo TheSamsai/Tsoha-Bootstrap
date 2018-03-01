@@ -21,18 +21,25 @@
       <label>Prioriteetti</label>
       <input name="prioriteetti" class="form-control" value="{{task.prioriteetti}}" type="text">
     </div>
+    
     <div>
-        <li>
-            {% for class in task.luokat %}
-            <ul>
-                <label>{{class.kuvaus}}</label>
-                <div class="form-group">
-                    <a type="submit" class="btn btn-danger" href="{{base_path}}/task/{{task.id}}/remove_class/{{class.id}}">Poista luokka</a>
-                </div>
-            </ul>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <td><label>Luokat:</label></td>
+          </tr>
+        </thead>
+        <tbody>
+          {% for class in task.luokat %}
+            <tr>
+                <td style="padding-right: 10px">{{class.kuvaus}}</td>
+                <td><a type="submit" class="btn btn-danger" href="{{base_path}}/task/{{task.id}}/remove_class/{{class.id}}">Poista luokka</a></td>
+            </tr>
             {% endfor %}
-        </li>
+        </tbody>
+      </table>
     </div>
+    
     <div class="form-group">
       <button type="submit" class="btn btn-primary">Tallenna</button>
     </div>

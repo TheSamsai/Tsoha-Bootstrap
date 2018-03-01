@@ -22,16 +22,23 @@
     </div>
   {% endif %}
   
-    <li>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Luokan nimi</th>
+        </tr>
+      </thead>
+    
+      <tbody>
         {% for class in classes %}
-        <ul>
-            <label>{{class.kuvaus}}</label>
-            <div class="form-group">
-                <a type="submit" class="btn btn-danger" href="{{base_path}}/class/{{class.id}}/remove">Poista</a>
-            </div>
-        </ul>
+        <tr>
+          <td>{{class.kuvaus}}</td>
+          <th><a type="submit" class="btn btn-primary" href="{{base_path}}/class/{{class.id}}/edit">Muokkaa</a></th>
+          <th><a type="submit" class="btn btn-danger" href="{{base_path}}/class/{{class.id}}/remove">Poista</a></th>
+        </tr>
         {% endfor %}
-    </li>
+      </tbody>
+    </table>
   
   <h2>Lisää uusi luokka</h2>
   

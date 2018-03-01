@@ -42,7 +42,11 @@
 				'prioriteetti' => $params['prioriteetti']
 			);
 			
-			$classes = $params['luokat'];
+			$classes = array();
+			
+			if (isset($_POST['luokat'])) {
+				$params['luokat'];
+			}
 			
 			$task = new Task($attrib);
 			
@@ -96,7 +100,7 @@
 			$err = $task->errors();
 			
 			if (count($err) == 0) {
-				$task->update($user->id);
+				$task->update();
 				Redirect::to('/');
 			} else {
 				$classes = TaskClass::all($user->id);

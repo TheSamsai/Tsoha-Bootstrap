@@ -8,7 +8,7 @@
 		}
 		
 		public static function all($user_id) {
-			$query = DB::connection()->prepare("SELECT * FROM Tehtava WHERE kayttaja_id = :kayttaja_id;");
+			$query = DB::connection()->prepare("SELECT * FROM Tehtava WHERE kayttaja_id = :kayttaja_id ORDER BY Tehtava.prioriteetti DESC;");
 			$query->execute(array('kayttaja_id' => $user_id));
 			
 			$rows = $query->fetchAll();

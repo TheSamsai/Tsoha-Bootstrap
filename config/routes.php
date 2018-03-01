@@ -72,6 +72,14 @@
     ClassController::delete($id);
   });
   
+  $routes->get('/class/:id/edit', function($id) {
+    ClassController::modify_view($id);
+  });
+  
+  $routes->post('/class/:id/edit', function($id) {
+    ClassController::edit($id);
+  });
+  
   $routes->get('/class/manage', function() {
     ClassController::manage_view();
   });

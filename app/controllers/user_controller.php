@@ -8,6 +8,7 @@
 			View::make('register.html', array());
 		}
 		
+		// Kirjautuminen
 		public static function handle_login() {
 			$params = $_POST;
 			
@@ -22,6 +23,7 @@
 			}
 		}
 		
+		// Uuden käyttäjän rekisteröinti
 		public static function handle_register() {
 			$params = $_POST;
 			

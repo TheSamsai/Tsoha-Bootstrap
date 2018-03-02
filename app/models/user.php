@@ -8,7 +8,8 @@
 		}
 		
 		public static function authenticate($username, $password) {
-			$query = DB::connection()->prepare('SELECT * FROM Kayttaja WHERE username = :username AND password = :password LIMIT 1');
+			$query = DB::connection()->prepare("SELECT * FROM Kayttaja 
+				WHERE username = :username AND password = :password LIMIT 1");
 			$query->execute(array('username' => $username, 'password' => $password));
 			
 			$row = $query->fetch();
@@ -27,7 +28,8 @@
 		}
 		
 		public static function find($user_id) {
-			$query = DB::connection()->prepare('SELECT * FROM Kayttaja WHERE id = :id LIMIT 1');
+			$query = DB::connection()->prepare("SELECT * FROM Kayttaja 
+				WHERE id = :id LIMIT 1");
 			$query->execute(array('id' => $user_id));
 			
 			$row = $query->fetch();
@@ -46,14 +48,15 @@
 		}
 		
 		public static function find_by_name($username) {
-			$query = DB::connection()->prepare('SELECT * FROM Kayttaja WHERE username = :username LIMIT 1');
+			$query = DB::connection()->prepare("SELECT * FROM Kayttaja 
+				WHERE username = :username LIMIT 1");
 			$query->execute(array('username' => $username));
 			
 			$row = $query->fetch();
 			
 			if ($row) {
 				$user = new User(array(
-					'id' => $user_id,
+					'id' => $row['id'],
 					'username' => $row['username'],
 					'password' => $row['password']
 				));
@@ -65,7 +68,8 @@
 		}
 		
 		public function store_new_user() {
-			$query = DB::connection()->prepare('INSERT INTO Kayttaja (username, password) VALUES (:username, :password) RETURNING id');
+			$query = DB::connection()->prepare("INSERT INTO Kayttaja (username, password) 
+				VALUES (:username, :password) RETURNING id");
 			$query->execute(array('username' => $this->username, 'password' => $this->password));
 			
 			$row = $query->fetch();

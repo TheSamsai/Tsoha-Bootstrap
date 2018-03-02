@@ -8,7 +8,9 @@
 		}
 		
 		public static function all($user_id) {
-			$query = DB::connection()->prepare("SELECT * FROM Tehtava WHERE kayttaja_id = :kayttaja_id ORDER BY Tehtava.prioriteetti DESC;");
+			$query = DB::connection()->prepare("SELECT * FROM Tehtava 
+				WHERE kayttaja_id = :kayttaja_id 
+				ORDER BY Tehtava.prioriteetti DESC;");
 			$query->execute(array('kayttaja_id' => $user_id));
 			
 			$rows = $query->fetchAll();
@@ -30,8 +32,37 @@
 			return $tasks;
 		}
 		
+		// Hae kaikki, jotka kuuluvat tehtäväluokkaan
+		public static function all_with_class($user_id, $class_id) {
+			$query = DB::connection()->prepare("SELECT * FROM Tehtava 
+				INNER JOIN TehtavaLuokka ON Tehtava.kayttaja_id = :kayttaja_id 
+				AND TehtavaLuokka.luokka_id = :luokka_id 
+				AND TehtavaLuokka.tehtava_id = Tehtava.id 
+				ORDER BY Tehtava.prioriteetti DESC;");
+			$query->execute(array('kayttaja_id' => $user_id, 'luokka_id' => $class_id));
+			
+			$rows = $query->fetchAll();
+			
+			$tasks = array();
+			
+			foreach($rows as $row) {
+				$classes = TaskClass::findForTask($user_id, $row['id']);
+				
+				$tasks[] = new Task(array(
+					'id' => $row['id'],
+					'kayttaja_id' => $row['kayttaja_id'],
+					'kuvaus' => $row['kuvaus'],
+					'prioriteetti' => $row['prioriteetti'],
+					'luokat' => $classes
+				));
+			}
+			
+			return $tasks;
+		}
+		
 		public static function find($user_id, $id) {
-			$query = DB::connection()->prepare("SELECT * FROM Tehtava WHERE id = :id AND kayttaja_id = :kayttaja_id LIMIT 1;");
+			$query = DB::connection()->prepare("SELECT * FROM Tehtava 
+				WHERE id = :id AND kayttaja_id = :kayttaja_id LIMIT 1;");
 			$query->execute(array('id' => $id, 'kayttaja_id' => $user_id));
 			
 			$row = $query->fetch();
@@ -54,12 +85,15 @@
 		}
 		
 		public function update() {
-			$query = DB::connection()->prepare("UPDATE Tehtava SET kuvaus = :kuvaus, prioriteetti = :prioriteetti WHERE id = :id AND kayttaja_id = :kayttaja_id;");
+			$query = DB::connection()->prepare("UPDATE Tehtava 
+				SET kuvaus = :kuvaus, prioriteetti = :prioriteetti 
+				WHERE id = :id AND kayttaja_id = :kayttaja_id;");
 			$query->execute(array('kuvaus' => $this->kuvaus, 'prioriteetti' => $this->prioriteetti, 'id' => $this->id, 'kayttaja_id' => $this->kayttaja_id));
 		}
 		
 		public function save() {
-			$query = DB::connection()->prepare("INSERT INTO Tehtava (kayttaja_id, kuvaus, prioriteetti) VALUES (:kayttaja_id, :kuvaus, :prioriteetti) RETURNING id;");
+			$query = DB::connection()->prepare("INSERT INTO Tehtava (kayttaja_id, kuvaus, prioriteetti) 
+				VALUES (:kayttaja_id, :kuvaus, :prioriteetti) RETURNING id;");
 			$query->execute(array('kayttaja_id' => $this->kayttaja_id, 'kuvaus' => $this->kuvaus, 'prioriteetti' => $this->prioriteetti));
 			$row = $query->fetch();
 			

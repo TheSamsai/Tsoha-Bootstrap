@@ -1,25 +1,26 @@
 <?php
 	class ClassController extends BaseController {
+		// Luokkien hallintanäkymä
 		public static function manage_view() {
 			self::check_logged_in();
 			$user = self::get_user_logged_in();
 			
 			$classes = TaskClass::all($user->id);
 			
-			Kint::dump($classes);
 			View::make('class/manage_classes.html', array('classes' => $classes));
 		}
 		
+		// Luokkien muokkausnäkymä
 		public static function modify_view($id) {
 			self::check_logged_in();
 			$user = self::get_user_logged_in();
 			
 			$class = TaskClass::find($user->id, $id);
 			
-			Kint::dump($class);
 			View::make('class/modify_class.html', array('class' => $class));
 		}
 		
+		// Tallenna uusi luokka
 		public static function store() {
 			self::check_logged_in();
 			$user = self::get_user_logged_in();
@@ -48,6 +49,7 @@
 			}
 		}
 		
+		// Muokkaa tiettyä luokkaa
 		public static function edit($id) {
 			self::check_logged_in();
 			$user = self::get_user_logged_in();
@@ -69,6 +71,7 @@
 			}
 		}
 		
+		// Poista luokka
 		public static function delete($id) {
 			self::check_logged_in();
 			$user = self::get_user_logged_in();

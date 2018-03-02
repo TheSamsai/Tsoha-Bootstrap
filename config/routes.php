@@ -3,6 +3,10 @@
   $routes->get('/', function() {
     TaskController::index();
   });
+  
+  $routes->get('/show_by/:id', function($class_id) {
+    TaskController::index_by_class($class_id);
+  });
 
   $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();

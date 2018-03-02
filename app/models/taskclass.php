@@ -8,7 +8,8 @@
 		}
 		
 		public static function all($user_id) {
-			$query = DB::connection()->prepare("SELECT * FROM Luokka WHERE kayttaja_id = :kayttaja_id");
+			$query = DB::connection()->prepare("SELECT * FROM Luokka 
+				WHERE kayttaja_id = :kayttaja_id");
 			$query->execute(array('kayttaja_id' => $user_id));
 			
 			$rows = $query->fetchAll();
@@ -27,7 +28,8 @@
 		}
 		
 		public static function find($user_id, $id) {
-			$query = DB::connection()->prepare("SELECT * FROM Luokka WHERE id = :id AND kayttaja_id = :kayttaja_id LIMIT 1");
+			$query = DB::connection()->prepare("SELECT * FROM Luokka 
+				WHERE id = :id AND kayttaja_id = :kayttaja_id LIMIT 1");
 			$query->execute(array('id' => $id, 'kayttaja_id' => $user_id));
 			
 			$row = $query->fetch();
@@ -61,12 +63,14 @@
 		}
 		
 		public static function connectTaskToClass($task_id, $class_id) {
-			$query = DB::connection()->prepare("INSERT INTO TehtavaLuokka (tehtava_id, luokka_id) VALUES (:tehtava_id, :luokka_id);");
+			$query = DB::connection()->prepare("INSERT INTO TehtavaLuokka (tehtava_id, luokka_id) 
+				VALUES (:tehtava_id, :luokka_id);");
 			$query->execute(array('tehtava_id' => $task_id, 'luokka_id' => $class_id));
 		}
 		
 		public function save() {
-			$query = DB::connection()->prepare("INSERT INTO Luokka (kayttaja_id, kuvaus) VALUES (:kayttaja_id, :kuvaus) RETURNING id;");
+			$query = DB::connection()->prepare("INSERT INTO Luokka (kayttaja_id, kuvaus) 
+				VALUES (:kayttaja_id, :kuvaus) RETURNING id;");
 			$query->execute(array('kayttaja_id' => $this->kayttaja_id, 'kuvaus' => $this->kuvaus));
 			$row = $query->fetch();
 			
@@ -74,7 +78,8 @@
 		}
 		
 		public function update() {
-			$query = DB::connection()->prepare("UPDATE Luokka SET kuvaus = :kuvaus WHERE id = :id AND kayttaja_id = :kayttaja_id;");
+			$query = DB::connection()->prepare("UPDATE Luokka SET kuvaus = :kuvaus 
+				WHERE id = :id AND kayttaja_id = :kayttaja_id;");
 			$query->execute(array('kuvaus' => $this->kuvaus, 'id' => $this->id, 'kayttaja_id' => $this->kayttaja_id));
 		}
 		

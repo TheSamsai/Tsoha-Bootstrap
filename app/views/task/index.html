@@ -28,7 +28,7 @@
         <td>{{task.prioriteetti}}</td>
         <td>
           {% for class in task.luokat %}
-          {{class.kuvaus}}
+            <a href="{{base_path}}/show_by/{{class.id}}">{{class.kuvaus}}</a>
           {% endfor %}
         </td>
         <th><a class="btn btn-primary" href="{{base_path}}/task/{{task.id}}/edit">Muokkaa</a></th>
@@ -39,5 +39,5 @@
   </table>
   
   <a class="btn btn-primary" href="{{base_path}}/task/new">Lisää uusi tehtävä</a>
-  <a class="btn btn-primary" href="{{base_path}}/class/manage">Lisää uusi luokka</a>
+  <a class="btn btn-primary" href="{{base_path}}/class/manage">Hallitse luokkia</a>
 {% endblock %}
